@@ -12,6 +12,11 @@ const lessonSchema = new Schema({
     content: {
         type: String,
         required: true,
+    },
+    lessonType: {
+        type: String,
+        enum: ['Material', 'Practice'],
+        default: 'Material'
     }
 }, {
     timestamps: true

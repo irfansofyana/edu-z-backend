@@ -3,4 +3,11 @@ const response_generator = (statusCode, results, res) => {
     res.json(results);
 }
 
-module.exports = response_generator;
+const result_controller = (response, results) => {
+    return {
+        "status": response,
+        "data": results
+    }
+}
+
+module.exports = {response_generator, result_controller};
