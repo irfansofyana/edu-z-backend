@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const router = express.Router();
 
-const Lessons = require('../models/lessons');
 const {getAllLessons, getLessonsById} = require('../controllers/lessons');
 const response_generator = require('../middleware');
 
