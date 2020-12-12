@@ -1,3 +1,5 @@
+const Lessons = require('../models/lessons');
+
 const getAllLessons = () => {
     const message = {
         "status": "OK",
