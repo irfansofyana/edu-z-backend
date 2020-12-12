@@ -14,6 +14,7 @@ const config = require('./config');
 // Routes
 var indexRouter = require('./routes/index');
 var lessonsRouter = require('./routes/lessons');
+var teachersRouter = require('./routes/teachers')
 
 
 // Database setup
@@ -42,6 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes setup
 app.use('/', indexRouter);
 app.use('/lessons', lessonsRouter);
+app.use('/teacher', teachersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
