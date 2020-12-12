@@ -15,6 +15,7 @@ const config = require('./config');
 var indexRouter = require('./routes/index');
 var lessonsRouter = require('./routes/lessons');
 
+
 // Database setup
 var uri = `${config.MONGO_URI}/${config.DB_NAME}`
 var connect = mongoose.connect(uri, {
