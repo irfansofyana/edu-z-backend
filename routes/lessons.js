@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
     const lesson = req.body;
     const message = await createLesson(lesson);
     const statusCode = message.status == "OK" ? 200 : 500;
-   
+    
     return response_generator(statusCode, message, res);
 });
 
