@@ -1,5 +1,9 @@
 const Teachers = require('../models/teachers')
+const bcrypt = require('bcrypt')
 const {result_controller} = require('../middleware')
+
+const round = 10  
+const salt = bcrypt.genSaltSync(round)
 
 
 const getAllTeachers = async () => {
@@ -24,6 +28,10 @@ const getTeaceherById = async  (id) => {
 
 const createTeacher = async (body) => {
     try {
+        //password hashing
+        let hashed = bcrypt.hashSync(body.password, salt)
+        body.password = hashed
+        
         const data = await Teachers.create(body)
         return result_controller("OK", data)
     } catch (error) {

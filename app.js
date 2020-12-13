@@ -43,7 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes setup
 app.use('/', indexRouter);
 app.use('/lessons', lessonsRouter);
-app.use('/teacher', teachersRouter);
+app.use('/teachers', teachersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
