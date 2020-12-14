@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const studentSchema = new Schema({
-    id: {
-        type: String,
-        require :true
-    },
     username: {
         type: String,
         required: true
@@ -16,10 +12,11 @@ const studentSchema = new Schema({
     },
     email: {
         type: String,
+        required: true
     },
     password: {
         type: String,
-        bcrypt: true,
+        required: true
     },
     education : {
         type: String,
