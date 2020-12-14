@@ -14,12 +14,9 @@ const config = require('./config');
 // Routes
 var indexRouter = require('./routes/index');
 var lessonsRouter = require('./routes/lessons');
-<<<<<<< HEAD
 var studentsRouter = require('./routes/students');
-=======
 var teachersRouter = require('./routes/teachers')
 
->>>>>>> development
 
 // Database setup
 var uri = `${config.MONGO_URI}/${config.DB_NAME}`
