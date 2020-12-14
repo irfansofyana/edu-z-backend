@@ -1,6 +1,7 @@
 const Students = require('../models/students');
 const {result_controller} = require('../middleware');
-
+const bcrypt = require('bcrypt');
+const salt = 10;
 
 const getAllStudents = async () => {
     try {

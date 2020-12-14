@@ -21,14 +21,10 @@ const studentSchema = new Schema({
         type: String,
         bcrypt: true,
     },
-    registeredClass: {
-        type: String,
-        enum: ['Material', 'Practice'],
-        default: 'Material'
-    },
     education : {
         type: String,
     }
+    // TODO: Tambah atribut registeredClass = [Classes]
 }, {
     timestamps: true
 });
