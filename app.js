@@ -17,7 +17,6 @@ var lessonsRouter = require('./routes/lessons');
 var studentsRouter = require('./routes/students');
 var teachersRouter = require('./routes/teachers')
 
-
 // Database setup
 var uri = `${config.MONGO_URI}/${config.DB_NAME}`
 var connect = mongoose.connect(uri, {
