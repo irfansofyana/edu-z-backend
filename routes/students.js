@@ -1,4 +1,5 @@
 const express = require('express');
+const { route } = require('.');
 const router = express.Router();
 
 const {
@@ -6,7 +7,8 @@ const {
     getStudentsById,
     createStudents,
     updateStudentsById,
-    deleteStudentsById
+    deleteStudentsById,
+    findStudentByUsernameAndPassword
 } = require('../controllers/students');
 const {response_generator} = require('../middleware');
 
@@ -21,6 +23,15 @@ router.get('/:student_id', async (req, res) => {
     const message = await getStudentsById(studentsId);
     const statusCode = message.status == "OK" ? 200 : 500;
     
+    return response_generator(statusCode, message, res);
+});
+
+router.post('/username', async (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    const message = await findStudentByUsernameAndPassword(username, password);
+    const statusCode = message.status == "OK" ? 200:500;
+
     return response_generator(statusCode, message, res);
 });
 

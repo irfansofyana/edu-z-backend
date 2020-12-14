@@ -57,10 +57,27 @@ const deleteStudentsById = async (id) => {
     }
 }
 
+const findStudentByUsernameAndPassword = async (username, password) => {
+    try {
+        const student = await Students.findOne({username: username}).exec();
+        let data = student;
+        
+        if (!bcrypt.compareSync(password, student.password)) {
+           data = null;
+        }
+
+        return result_controller("OK", data);
+    } catch (err) {
+        console.error(err);
+        return result_controller("ERROR", null);
+    }
+}
+
 module.exports = {
     getAllStudents,
     getStudentsById,
     createStudents,
     updateStudentsById,
-    deleteStudentsById
+    deleteStudentsById,
+    findStudentByUsernameAndPassword
 }
