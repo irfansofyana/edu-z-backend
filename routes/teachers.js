@@ -6,7 +6,8 @@ const{
     updateTeacherById,
     deleteAllTeacher,
     deleteTeacherById,
-    getTeaceherById
+    getTeacherById,
+    getTeacherByUsernameAndPassword
 } = require("../controllers/teachers")
 const {response_generator} = require('../middleware')
 
@@ -32,10 +33,19 @@ router.delete('/', async(req, res) => {
 })
 
 router.get('/:teacher_id', async (req, res) => {
-    const data = await getTeaceherById(req.params.teacher_id)
+    const data = await getTeacherById(req.params.teacher_id)
     const stat = data.status == "OK" ? 200 : 500
     
     return response_generator(stat, data, res)
+})
+
+router.post('/username', async (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    const message = await getTeacherByUsernameAndPassword(username, password);
+    const statusCode = message.status == "OK" ? 200:500;
+
+    return response_generator(statusCode, message, res);
 })
 
 router.put('/:teacher_id', async (req, res) => {

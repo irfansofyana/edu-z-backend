@@ -57,7 +57,7 @@ const deleteStudentsById = async (id) => {
     }
 }
 
-const findStudentByUsernameAndPassword = async (username, password) => {
+const getStudentByUsernameAndPassword = async (username, password) => {
     try {
         const student = await Students.findOne({username: username}).exec();
         let data = student;
@@ -79,5 +79,5 @@ module.exports = {
     createStudents,
     updateStudentsById,
     deleteStudentsById,
-    findStudentByUsernameAndPassword
+    getStudentByUsernameAndPassword
 }

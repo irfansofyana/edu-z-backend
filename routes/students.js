@@ -8,7 +8,7 @@ const {
     createStudents,
     updateStudentsById,
     deleteStudentsById,
-    findStudentByUsernameAndPassword
+    getStudentByUsernameAndPassword
 } = require('../controllers/students');
 const {response_generator} = require('../middleware');
 
@@ -29,7 +29,7 @@ router.get('/:student_id', async (req, res) => {
 router.post('/username', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    const message = await findStudentByUsernameAndPassword(username, password);
+    const message = await getStudentByUsernameAndPassword(username, password);
     const statusCode = message.status == "OK" ? 200:500;
 
     return response_generator(statusCode, message, res);
