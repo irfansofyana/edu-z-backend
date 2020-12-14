@@ -13,11 +13,12 @@ const classesSchema = new Schema({
     owner: {
         type: String,
         required: true
-    }
-    // lessons: {
-    //     type: String,
-    //     required: true
-    // },
+    },
+    lessons: [{
+        lesson_number : {type: Number},
+        lesson_title : {type: String},
+        lesson_body : {type: String}
+    }]
     // member: {
     //     type: String,
     //     required: true
