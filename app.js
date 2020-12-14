@@ -15,7 +15,8 @@ const config = require('./config');
 var indexRouter = require('./routes/index');
 var lessonsRouter = require('./routes/lessons');
 var studentsRouter = require('./routes/students');
-var teachersRouter = require('./routes/teachers')
+var teachersRouter = require('./routes/teachers');
+var feedbacksRouter = require('./routes/feedbacks');
 
 // Database setup
 var uri = `${config.MONGO_URI}/${config.DB_NAME}`
@@ -45,6 +46,7 @@ app.use('/', indexRouter);
 app.use('/lessons', lessonsRouter);
 app.use('/students', studentsRouter);
 app.use('/teachers', teachersRouter);
+app.use('/feedbacks', feedbacksRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
