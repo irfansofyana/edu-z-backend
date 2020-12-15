@@ -17,7 +17,7 @@ const getClassesById = async (id) => {
         return result_controller("OK", classes);
     } catch (err) {
         console.log(err);
-        result_controller("ERROR", null);
+        return result_controller("ERROR", null);
     }
 }
 
@@ -27,7 +27,7 @@ const createClasses = async (classes) => {
         return result_controller("OK", createdClasses);
     } catch (err) {
         console.log(err);
-        result_controller("ERROR", null);
+        return result_controller("ERROR", null);
     }
 }
 
@@ -41,7 +41,7 @@ const updateClassesById = async (id, updatedData) => {
         return result_controller("OK", updatedClasses);
     } catch (err) {
         console.log(err);
-        result_controller("ERROR", null);
+        return result_controller("ERROR", null);
     }
 }
 
@@ -51,7 +51,7 @@ const deleteClassesById = async (id) => {
         return result_controller("OK", deletedClasses);
     } catch (err) {
         console.log(err);
-        result_controller("ERROR", null);
+        return result_controller("ERROR", null);
     }
 }
 
