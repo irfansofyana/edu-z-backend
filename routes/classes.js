@@ -18,7 +18,7 @@ router.get('/', async (req,res) => {
 });
 
 router.get('/:classes_id', async (req, res) => {
-    const ClassesId = req.params.classes_id;
+    const classesId = req.params.classes_id;
     const message = await getClassesById(classesId);
     const statusCode = message.status == "OK" ? 200 : 500;
 
