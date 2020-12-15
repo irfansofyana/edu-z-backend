@@ -6,7 +6,8 @@ mongoose.set('useFindAndModify', false)
 const teacherSchema = new Schema({
     username: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     name: {
         type: String,
