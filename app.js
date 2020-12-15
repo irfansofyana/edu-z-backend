@@ -20,6 +20,9 @@ var feedbacksRouter = require('./routes/feedbacks');
 var classesRouter = require('./routes/classes');
 var authRouter = require('./routes/auth');
 
+// Auth middleware
+var {jwtAuth} = require('./middleware');
+
 // Database setup
 var uri = `${config.MONGO_URI}/${config.DB_NAME}`
 var connect = mongoose.connect(uri, {
@@ -46,8 +49,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes setup
 app.use('/', indexRouter);
 app.use('/lessons', lessonsRouter);
-app.use('/students', studentsRouter);
-app.use('/teachers', teachersRouter);
+app.use('/students', jwtAuth, studentsRouter);
+app.use('/teachers', jwtAuth, teachersRouter);
 app.use('/feedbacks', feedbacksRouter);
 app.use('/classes', classesRouter);
 app.use('/auth', authRouter);

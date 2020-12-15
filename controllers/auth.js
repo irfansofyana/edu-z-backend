@@ -68,7 +68,7 @@ const signinTeacher = async (username, userpassword) => {
         }
 
         const token = jwt.sign(
-            { id: authUser._id},
+            { id: authUser.id},
             config.SECRET,
             {expiresIn: 86400}
         );
@@ -101,7 +101,7 @@ const signinStudent = async (username, userpassword) => {
         }
 
         const token = jwt.sign(
-            { id: authUser._id},
+            { id: authUser.id},
             config.SECRET,
             {expiresIn: 86400}
         );

@@ -45,6 +45,7 @@ router.post('/signin/teacher', async (req, res) => {
 
 router.post('/signin/student', async (req, res) => {
     const {username, password} = req.body;
+    console.log(username, password);
     const message = await signinStudent(username, password);
 
     let statusCode = 200;

@@ -1,3 +1,5 @@
+const jwtAuth = require('./auth');
+
 const response_generator = (statusCode, results, res) => {
     res.statusCode = statusCode;
     res.json(results);
@@ -10,4 +12,4 @@ const result_controller = (response, results) => {
     }
 }
 
-module.exports = {response_generator, result_controller};
+module.exports = {response_generator, result_controller, jwtAuth};
