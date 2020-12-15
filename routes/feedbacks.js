@@ -2,49 +2,49 @@ const express = require('express');
 const router = express.Router();
 
 const {
-    getAllLessons, 
-    getLessonById, 
-    createLesson,
-    updateLessonById,
-    deleteLessonById
-} = require('../controllers/lessons');
+    getAllFeedbacks,
+    getFeedbackById,
+    createFeedback,
+    updateFeedbackById,
+    deleteFeedbackById
+} = require('../controllers/feedbacks');
 const {response_generator} = require('../middleware');
 
 router.get('/', async (req, res) => {
-    const message = await getAllLessons();
+    const message = await getAllFeedbacks();
     const statusCode = message.status == "OK" ? 200 : 500;
-    return response_generator(statusCode, message, res);
-});
-
-router.get('/:lesson_id', async (req, res) => {
-    const lessonId = req.params.lesson_id;
-    const message = await getLessonById(lessonId);
-    const statusCode = message.status == "OK" ? 200 : 500;
-    
     return response_generator(statusCode, message, res);
 });
 
 router.post('/', async (req, res) => {
-    const lesson = req.body;
-    const message = await createLesson(lesson);
+    const feedback = req.body;
+    const message = await createFeedback(feedback);
     const statusCode = message.status == "OK" ? 200 : 500;
     
     return response_generator(statusCode, message, res);
 });
 
-router.put('/:lesson_id', async (req, res) => {
-    const lesson = req.body;
-    const lessonId = req.params.lesson_id;
-
-    const message = await updateLessonById(lessonId, lesson);
+router.get('/:feedback_id', async (req, res) => {
+    const feedbackId = req.params.feedback_id;
+    const message = await getFeedbackById(feedbackId);
     const statusCode = message.status == "OK" ? 200 : 500;
     
     return response_generator(statusCode, message, res);
 });
 
-router.delete('/:lesson_id', async (req, res) => {
-    const lessonId = req.params.lesson_id;
-    const message = await deleteLessonById(lessonId);
+router.put('/:feedback_id', async (req, res) => {
+    const feedback = req.body;
+    const feedbackId = req.params.feedback_id;
+
+    const message = await updateFeedbackById(feedbackId, feedback);
+    const statusCode = message.status == "OK" ? 200 : 500;
+    
+    return response_generator(statusCode, message, res);
+});
+
+router.delete('/:feedback_id', async (req, res) => {
+    const feedbackId = req.params.feedback_id;
+    const message = await deleteFeedbackById(feedbackId);
 
     const statusCode = message.status == "OK" ? 200 : 500;
     
