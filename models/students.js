@@ -21,9 +21,6 @@ const studentSchema = new Schema({
     phone: {
         type: String,
         required: true
-    },
-    education : {
-        type: String,
     }
     // TODO: Tambah atribut registeredClass = [Classes]
 }, {
