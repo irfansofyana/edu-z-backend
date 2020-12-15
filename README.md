@@ -12,3 +12,4 @@ Module you must install
 -npm install 
 -npm install bcrypt
 -npm install express-fileupload
+-npm install multer
