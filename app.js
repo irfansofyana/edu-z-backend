@@ -18,6 +18,7 @@ var studentsRouter = require('./routes/students');
 var teachersRouter = require('./routes/teachers');
 var feedbacksRouter = require('./routes/feedbacks');
 var classesRouter = require('./routes/classes');
+var fileuploadsRouter = require('./routes/fileuploads');
 
 // Database setup
 var uri = `${config.MONGO_URI}/${config.DB_NAME}`
@@ -41,6 +42,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//code connected with routes/fileuploads.js
+app.use(express.static('uploads'));
 
 // Routes setup
 app.use('/', indexRouter);
@@ -49,6 +52,7 @@ app.use('/students', studentsRouter);
 app.use('/teachers', teachersRouter);
 app.use('/feedbacks', feedbacksRouter);
 app.use('/classes', classesRouter);
+app.use('/fileuploads', fileuploadsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
