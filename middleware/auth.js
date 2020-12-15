@@ -18,7 +18,6 @@ const authenticateJWT = (req, res, next) => {
             const verified = jwt.verify(token, config.SECRET);
 
             if (verified) {
-                console.log(verified);
                 req.user = verified;
                 next();
             }
