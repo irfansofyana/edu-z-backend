@@ -1,3 +1,4 @@
+const Classes = require('./classes')
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -20,7 +21,11 @@ const studentSchema = new Schema({
     },
     education : {
         type: String,
-    }
+    },
+    registeredClass: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Classes'
+    }]
     // TODO: Tambah atribut registeredClass = [Classes]
 }, {
     timestamps: true

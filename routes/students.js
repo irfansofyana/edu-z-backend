@@ -39,7 +39,7 @@ router.post('/', async (req, res) => {
     const students = req.body;
     const message = await createStudents(students);
     const statusCode = message.status == "OK" ? 200 : 500;
-   
+
     return response_generator(statusCode, message, res);
 });
 
@@ -61,5 +61,6 @@ router.delete('/:student_id', async (req, res) => {
     
     return response_generator(statusCode, message, res);
 });
+
 
 module.exports = router;
