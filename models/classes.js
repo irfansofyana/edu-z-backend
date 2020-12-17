@@ -15,9 +15,8 @@ const classesSchema = new Schema({
         ref: 'Teachers'
     },
     lessons: [{
-        lesson_number : {type: Number},
-        lesson_title : {type: String},
-        lesson_body : {type: String}
+        type: Schema.Types.ObjectId,
+        ref: 'Lessons'
     }],
     member: [{
         type: Schema.Types.ObjectId,
