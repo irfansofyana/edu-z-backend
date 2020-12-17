@@ -27,7 +27,7 @@ const getStudentsById = async (id) => {
     }
 }
 
-const createStudents = async (body) => {
+const createStudent = async (body) => {
     try {
         //password hashing
         let hashed = bcrypt.hashSync(body.password, salt)
@@ -138,7 +138,7 @@ const unEnrollClass = async (studentId, classId) => {
 module.exports = {
     getAllStudents,
     getStudentsById,
-    createStudents,
+    createStudent,
     updateStudentsById,
     deleteStudentsById,
     getStudentByUsernameAndPassword,

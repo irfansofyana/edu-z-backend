@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 const studentSchema = new Schema({
     username: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     name: {
         type: String,
@@ -19,14 +20,14 @@ const studentSchema = new Schema({
         type: String,
         required: true
     },
-    education : {
+    phone: {
         type: String,
+        required: true
     },
     registeredClass: [{
         type: Schema.Types.ObjectId,
         ref: 'Classes'
     }]
-    // TODO: Tambah atribut registeredClass = [Classes]
 }, {
     timestamps: true
 });

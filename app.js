@@ -19,6 +19,10 @@ var teachersRouter = require('./routes/teachers');
 var feedbacksRouter = require('./routes/feedbacks');
 var classesRouter = require('./routes/classes');
 var enrollmentRouter = require('./routes/enrollment')
+var authRouter = require('./routes/auth');
+
+// Auth middleware
+var {jwtAuth} = require('./middleware');
 
 // Database setup
 var uri = `${config.MONGO_URI}/${config.DB_NAME}`
@@ -46,11 +50,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes setup
 app.use('/', indexRouter);
 app.use('/lessons', lessonsRouter);
-app.use('/students', studentsRouter);
-app.use('/teachers', teachersRouter);
+app.use('/students', jwtAuth, studentsRouter);
+app.use('/teachers', jwtAuth, teachersRouter);
 app.use('/feedbacks', feedbacksRouter);
 app.use('/classes', classesRouter);
 app.use('/enrollment', enrollmentRouter)
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
