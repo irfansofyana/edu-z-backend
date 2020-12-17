@@ -31,7 +31,7 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer ({ storage });
+const upload = multer ({ storage:storage });
 // const avatar = multer({
 //     limits: {
 //         fileSize: 1000000
@@ -49,7 +49,7 @@ router.get('/', async (req, res) => {
     return response_generator(statusCode, message, res);
 });
 
-router.post('/', upload.single('files'), async (req, res) => {
+router.post('/', upload.single('filePath'), async (req, res) => {
     const fileupload = req.body;
     //const fileupload = req.file;
     //upload.single('files');

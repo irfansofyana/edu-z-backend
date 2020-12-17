@@ -18,7 +18,10 @@ var studentsRouter = require('./routes/students');
 var teachersRouter = require('./routes/teachers');
 var feedbacksRouter = require('./routes/feedbacks');
 var classesRouter = require('./routes/classes');
-var fileuploadsRouter = require('./routes/fileuploads');
+var authRouter = require('./routes/auth');
+
+// Auth middleware
+var {jwtAuth} = require('./middleware');
 
 // Database setup
 var uri = `${config.MONGO_URI}/${config.DB_NAME}`
@@ -48,8 +51,8 @@ app.use(express.static('uploads'));
 // Routes setup
 app.use('/', indexRouter);
 app.use('/lessons', lessonsRouter);
-app.use('/students', studentsRouter);
-app.use('/teachers', teachersRouter);
+app.use('/students', jwtAuth, studentsRouter);
+app.use('/teachers', jwtAuth, teachersRouter);
 app.use('/feedbacks', feedbacksRouter);
 app.use('/classes', classesRouter);
 app.use('/fileuploads', fileuploadsRouter);
