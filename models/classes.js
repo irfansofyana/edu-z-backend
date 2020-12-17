@@ -11,8 +11,8 @@ const classesSchema = new Schema({
         type: String,
     },
     owner: {
-        type: String,
-        required: true
+        type: Schema.Types.ObjectId,
+        ref: 'Teachers'
     },
     lessons: [{
         lesson_number : {type: Number},
