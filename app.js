@@ -49,12 +49,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes setup
 app.use('/', indexRouter);
-app.use('/lessons', lessonsRouter);
+app.use('/lessons', jwtAuth, lessonsRouter);
 app.use('/students', jwtAuth, studentsRouter);
 app.use('/teachers', jwtAuth, teachersRouter);
-app.use('/feedbacks', feedbacksRouter);
-app.use('/classes', classesRouter);
-app.use('/enrollment', enrollmentRouter)
+app.use('/feedbacks', jwtAuth, feedbacksRouter);
+app.use('/classes', jwtAuth, classesRouter);
+app.use('/enrollment', jwtAuth, enrollmentRouter)
 app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
