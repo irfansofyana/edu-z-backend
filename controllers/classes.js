@@ -112,6 +112,69 @@ const deleteClassMember = async (classId, studentId) => {
     }
 }
 
+const addLessonToClass = async (classId, lessonId) => {
+    try {
+        const LessonObjectId = Mongoose.Types.ObjectId(lessonId);
+
+        const classLessons = await Classes.findByIdAndUpdate(
+            classId,
+            {$push: {lessons : LessonObjectId}},
+            {new: true}
+        );
+
+        return result_controller("OK", classLessons);
+    } catch (err) {
+        console.error(err);
+        return result_controller("ERROR", null);
+    }
+}
+
+const getAllLessons = async (classId) => {
+    try {
+        const listOfLessons = await (
+            Classes.findById(classId)
+                .populate({path: "lessons", model: "Lessons"})
+        );
+        return result_controller("OK", listOfLessons)
+    } catch (error) {
+        console.error(error)
+        return result_controller("ERROR", null)
+    }
+}
+
+const getClassLessonById = async (classId, lessonId) => {
+    try {
+        const classLessons = await Classes
+            .findById(classId)
+            .populate({
+                path: "lessons",
+                model: "Lessons",
+                match: {_id: lessonId}
+            });
+        return result_controller("OK", classLessons.lessons)
+    } catch (error) {
+        console.error(error)
+        return result_controller("ERROR", null)
+    }
+}
+
+const deleteClassLesson = async (classId, lessonId) => {
+    try {
+        const lessonObjectId = Mongoose.Types.ObjectId(lessonId)
+        
+        const deletedMemeber = await Classes.findByIdAndUpdate(
+            classId, 
+            {$pull : {lessons : lessonObjectId} }, 
+            {new: true}
+        );
+        
+        return result_controller("OK", deletedMemeber)
+    } catch (err) {
+        console.error(err);
+        return result_controller("ERROR", null);
+    }
+}
+
 module.exports = {
     getAllClasses,
     getClassesById,
@@ -121,5 +184,9 @@ module.exports = {
     getAllClassMember,
     getClassMemberById,
     addClassMember,
-    deleteClassMember
+    deleteClassMember,
+    addLessonToClass,
+    getAllLessons,
+    getClassLessonById,
+    deleteClassLesson
 }
