@@ -18,7 +18,6 @@ var studentsRouter = require('./routes/students');
 var teachersRouter = require('./routes/teachers');
 var feedbacksRouter = require('./routes/feedbacks');
 var classesRouter = require('./routes/classes');
-var enrollmentRouter = require('./routes/enrollment')
 var authRouter = require('./routes/auth');
 
 // Auth middleware
@@ -54,7 +53,6 @@ app.use('/students', jwtAuth, studentsRouter);
 app.use('/teachers', jwtAuth, teachersRouter);
 app.use('/feedbacks', jwtAuth, feedbacksRouter);
 app.use('/classes', jwtAuth, classesRouter);
-app.use('/enrollment', jwtAuth, enrollmentRouter)
 app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
