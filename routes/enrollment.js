@@ -56,7 +56,6 @@ router.get('/classes/:class_id/students/:student_id', async (req, res) => {
     return response_generator(statusCode, message, res)
 })
 
-
 //get all class member
 router.get('/classes/:class_id/members', async (req, res) => {
     const class_id = req.params.class_id

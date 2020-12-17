@@ -11,16 +11,34 @@ const {
     addLessonToClass,
     getAllLessons,
     getClassLessonById,
-    deleteClassLesson
+    deleteClassLesson,
+    getAllClassMember,
+    getClassMemberById,
+    addClassMember,
+    deleteClassMember
 } = require('../controllers/classes');
+
+const {
+    getAllEnrolledClass,
+    getEnrolledClassById,
+    enrollClass,
+    unEnrollClass
+} = require('../controllers/students')
+
 const {response_generator} = require('../middleware');
 
+/**
+ * Get all classes
+ */
 router.get('/', async (req,res) => {
     const message = await getAllClasses();
     const statusCode = message.status == "OK" ? 200 : 500;
     return response_generator(statusCode, message, res);
 });
 
+/**
+ * Get class by class_id
+ */
 router.get('/:class_id', async (req, res) => {
     const classesId = req.params.class_id;
 
@@ -30,6 +48,9 @@ router.get('/:class_id', async (req, res) => {
     return response_generator(statusCode, message, res);
 });
 
+/**
+ * Create a class
+ */
 router.post('/', async (req, res) => {
     const classes = req.body;
 
@@ -39,6 +60,9 @@ router.post('/', async (req, res) => {
     return response_generator(statusCode, message, res);
 });
 
+/**
+ * Add lesson to a certain class
+ */
 router.post('/lessons', async (req, res) => {
     const classId = req.body.class_id;
     const lessonId = req.body.lesson_id;
@@ -49,6 +73,22 @@ router.post('/lessons', async (req, res) => {
     return response_generator(statusCode, message, res);
 });
 
+/**
+ * Add member to a certain class
+ */
+router.post('/members', async (req, res) => {
+    const student_id = req.body.student_id
+    const class_id = req.body.class_id
+    const message = await enrollClass(student_id, class_id)
+    const message2 = await addClassMember(class_id, student_id)
+
+    const statusCode = message.status && message2.status == "OK" ? 200 : 500
+    return response_generator(statusCode, message, res)
+});
+
+/**
+ * Get all lessons of a certain class
+ */
 router.get('/:class_id/lessons', async (req, res) => {
     const message = await getAllLessons(req.params.class_id);
     const statusCode = message.status == "OK" ? 200 : 500;
@@ -56,6 +96,9 @@ router.get('/:class_id/lessons', async (req, res) => {
     return response_generator(statusCode, message, res);
 });
 
+/**
+ * Get detail lesson of a certain class
+ */
 router.get('/:class_id/lessons/:lesson_id', async (req, res) => {
     const classId = req.params.class_id;
     const lessonId = req.params.lesson_id;
@@ -66,6 +109,34 @@ router.get('/:class_id/lessons/:lesson_id', async (req, res) => {
     return response_generator(statusCode, message, res);
 });
 
+/**
+ * Get all members of a certain class
+ */
+router.get('/:class_id/members', async (req, res) => {
+    const classId = req.params.class_id
+    const message = await getAllClassMember(classId)
+    
+    const statusCode = message.status == "OK" ? 200 : 500
+
+    return response_generator(statusCode, message, res)
+});
+
+/**
+ * Get a single member from a certain class
+ */
+router.get('/:class_id/members/:student_id', async (req, res) => {
+    const classId = req.params.class_id
+    const studentId = req.params.student_id
+    const message = await getClassMemberById(classId, studentId)
+
+    const statusCode = message.status == "OK" ? 200 : 500
+
+    return response_generator(statusCode, message, res)
+})
+
+/**
+ * Update class by its id
+ */
 router.put('/:class_id', async (req, res) => {
     const classes = req.body;
     const classesId = req.params.class_id;
@@ -76,6 +147,22 @@ router.put('/:class_id', async (req, res) => {
     return response_generator(statusCode, message, res);
 });
 
+/**
+ * Delete a certain student from a certain class
+ */
+router.put('/:class_id/members/:student_id', async (req, res) => {
+    const student_id = req.params.student_id
+    const class_id = req.params.class_id
+    const message = await unEnrollClass(student_id, class_id)
+    const message2 = await deleteClassMember(class_id, student_id)
+
+    const statusCode  = message.status && message2.status == "OK" ? 200 : 500
+    return response_generator(statusCode, message, res)
+})
+
+/**
+ * Delete a certain lesson from a certain class
+ */
 router.put('/:class_id/lessons/:lesson_id', async (req, res) => {
     const classId = req.params.class_id;
     const lessonId = req.params.lesson_id;
@@ -86,6 +173,9 @@ router.put('/:class_id/lessons/:lesson_id', async (req, res) => {
     return response_generator(statusCode, message, res);
 });
 
+/**
+ * Delete a class
+ */
 router.delete('/:class_id', async (req, res) => {
     const classesId = req.params.class_id;
 
