@@ -18,11 +18,11 @@ const classesSchema = new Schema({
         lesson_number : {type: Number},
         lesson_title : {type: String},
         lesson_body : {type: String}
+    }],
+    member: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Students'
     }]
-    // member: {
-    //     type: String,
-    //     required: true
-    // },
     // feedbacks: {
     //     type: String,
     //     required: true
