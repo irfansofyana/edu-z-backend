@@ -55,6 +55,7 @@ const deleteClassesById = async (id) => {
     }
 }
 
+
 module.exports = {
     getAllClasses,
     getClassesById,
