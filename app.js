@@ -19,6 +19,7 @@ var teachersRouter = require('./routes/teachers');
 var feedbacksRouter = require('./routes/feedbacks');
 var classesRouter = require('./routes/classes');
 var authRouter = require('./routes/auth');
+var fileuploadsRouter = require('./routes/fileuploads');
 
 // Auth middleware
 var {jwtAuth} = require('./middleware');

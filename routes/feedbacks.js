@@ -4,6 +4,7 @@ const router = express.Router();
 const {
     getAllFeedbacks,
     getFeedbackById,
+    getFeedbacClassById,
     createFeedback,
     updateFeedbackById,
     deleteFeedbackById
@@ -12,6 +13,13 @@ const {response_generator} = require('../middleware');
 
 router.get('/', async (req, res) => {
     const message = await getAllFeedbacks();
+    const statusCode = message.status == "OK" ? 200 : 500;
+    return response_generator(statusCode, message, res);
+});
+
+router.get('/class/:class_id', async (req, res) => {
+    const feedbackClassId = req.params.class_id;
+    const message = await getFeedbacClassById(feedbackClassId);
     const statusCode = message.status == "OK" ? 200 : 500;
     return response_generator(statusCode, message, res);
 });
