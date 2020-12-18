@@ -25,6 +25,8 @@ const {
     unEnrollClass
 } = require('../controllers/students')
 
+const {addClassToTeacher, deleteTeacherClass} = require('../controllers/teachers');
+
 const {response_generator} = require('../middleware');
 
 /**
@@ -55,9 +57,11 @@ router.post('/', async (req, res) => {
     const classes = req.body;
 
     const message = await createClasses(classes);
-    const statusCode = message.status == "OK" ? 200 : 500;
+    const addedClass = await addClassToTeacher(req.body.owner, message.data._id); 
 
-    return response_generator(statusCode, message, res);
+    const statusCode = message.status == "OK" && addedClass.status == "OK" ? 200 : 500;
+
+    return response_generator(statusCode, (statusCode == 500 ? null : message), res);
 });
 
 /**
@@ -180,9 +184,14 @@ router.delete('/:class_id', async (req, res) => {
     const classesId = req.params.class_id;
 
     const message = await deleteClassesById(classesId);
-    const statusCode = message.status == "OK" ? 200 : 500;
+    let deletedClass;
+    if (message.status == "OK") {
+        const teacherId = message.data.owner;
+        deletedClass = await deleteTeacherClass(teacherId, classesId);
+    }
+    const statusCode = message.status == "OK" && deletedClass.status == "OK" ? 200 : 500;
 
-    return response_generator(statusCode, message, res);
+    return response_generator(statusCode, (statusCode == 500 ? null : message), res);
 });
 
 module.exports = router;
