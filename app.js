@@ -5,6 +5,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var multer = require('multer');
 
 var app = express();
 
@@ -19,6 +20,7 @@ var teachersRouter = require('./routes/teachers');
 var feedbacksRouter = require('./routes/feedbacks');
 var classesRouter = require('./routes/classes');
 var authRouter = require('./routes/auth');
+var filesRouter = require('./routes/files');
 
 // Auth middleware
 var {jwtAuth} = require('./middleware');
@@ -42,9 +44,10 @@ app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 // Routes setup
 app.use('/', indexRouter);
@@ -53,6 +56,7 @@ app.use('/students', jwtAuth, studentsRouter);
 app.use('/teachers', jwtAuth, teachersRouter);
 app.use('/feedbacks', jwtAuth, feedbacksRouter);
 app.use('/classes', jwtAuth, classesRouter);
+app.use('/files', filesRouter);
 app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
