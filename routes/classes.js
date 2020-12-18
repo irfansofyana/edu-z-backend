@@ -19,6 +19,14 @@ const {
 } = require('../controllers/classes');
 
 const {
+    getAllClassDiscussion,
+    getClassDiscussionById,
+    addClassDiscussion,
+    updateClassDiscussion,
+    deleteClassDiscussion
+} = require('../controllers/discussions')
+
+const {
     getAllEnrolledClass,
     getEnrolledClassById,
     enrollClass,
@@ -176,6 +184,53 @@ router.put('/:class_id/lessons/:lesson_id', async (req, res) => {
 
     return response_generator(statusCode, message, res);
 });
+
+//Discussion
+router.get('/:classId/discussions', async (req, res) => {
+    let classId = req.params.classId
+    const data = await getAllClassDiscussion(classId)
+    const stat = data.status == "OK" ? 200 : 500
+
+    return response_generator(stat, data, res)
+})
+
+router.get('/:classId/discussions/:discussionId', async (req, res) => {
+    let classId = req.params.classId
+    let discId = req.params.discussionId
+    const data = await getClassDiscussionById(classId, discId)
+    const stat = data.status == "OK" ? 200 : 500
+
+    return response_generator(stat, data, res)
+})
+
+
+router.post('/:classId/discussions', async(req, res) => {
+    let discussion = req.body
+    let classId = req.params.classId
+    const data = await addClassDiscussion(discussion, classId)
+    const stat = data.status == "OK" ? 200 : 500
+    
+    return response_generator(stat, data, res)
+})
+
+router.put('/:classId/discussions/:discussionId', async (req, res) => {
+    let classId = req.params.classId
+    let discId = req.params.discussionId
+    let discussion = req.body
+    const data = await updateClassDiscussion(classId, discId, discussion)
+    const stat = data.status == "OK" ? 200 : 500
+
+    return response_generator(stat, data, res)
+})
+
+router.delete('/:classId/discussions/:discussionId', async (req, res) => {
+    let classId = req.params.classId
+    let discId = req.params.discussionId
+    const data = await deleteClassDiscussion(classId, discId)
+    const stat = data.status == "OK" ? 200 : 500
+
+    return response_generator(stat, data, res)
+})
 
 /**
  * Delete a class

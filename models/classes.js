@@ -1,6 +1,7 @@
 //Class: id, name, description, owner, [lessons], [member], [feedbacks]
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Discussions = require('./discussions')
 
 const classesSchema = new Schema({
     name: {
@@ -24,6 +25,10 @@ const classesSchema = new Schema({
     member: [{
         type: Schema.Types.ObjectId,
         ref: 'Students'
+    }],
+    discussions: [{
+        type: Schema.Types.ObjectId,
+        ref: "Discussions"
     }]
     // feedbacks: {
     //     type: String,
