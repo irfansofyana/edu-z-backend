@@ -30,15 +30,6 @@ const classesSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Discussions"
     }]
-    // feedbacks: {
-    //     type: String,
-    //     required: true
-    // }
-    // ,
-    // token_password: {
-    //     type: String,
-    //     required: true
-    // }
 }, {
     timestamps: true
 });
