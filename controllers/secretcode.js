@@ -11,9 +11,9 @@ const addSecretCode = async (data) => {
     }
 }
 
-const getSecretCode = async (email) => {
+const getSecretCode = async (email, accountType) => {
     try {
-        const data = await SecretCode.findOne({email: email}).exec();
+        const data = await SecretCode.findOne({email: email, accountType: accountType}).exec();
         return result_controller("OK", data);
     } catch (err) {
         console.error(err);

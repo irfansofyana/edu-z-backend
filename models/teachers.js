@@ -21,6 +21,11 @@ const teacherSchema = new Schema({
         type: String,
         required: true
     },
+    status: {
+        type: String,
+        required: true,
+        default: "pending"
+    },
     phone: {
         type: String,
         required: true

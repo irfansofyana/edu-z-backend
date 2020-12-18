@@ -135,7 +135,7 @@ const unEnrollClass = async (studentId, classId) => {
     }
 } // end func
 
-const updateStatus = async (studentId) => {
+const updateStatusStudent = async (studentId) => {
     try {
         const updatedStudent = await Students.findByIdAndUpdate(
             studentId,
@@ -159,5 +159,5 @@ module.exports = {
     getEnrolledClassById,
     enrollClass,
     unEnrollClass,
-    updateStatus
+    updateStatusStudent
 }

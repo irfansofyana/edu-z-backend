@@ -150,6 +150,19 @@ const deleteTeacherClass = async (teacherId, classId) => {
     }
 }
 
+const updateStatusTeacher = async (teacherId) => {
+    try {
+        const updatedTeacher = await Teachers.findByIdAndUpdate(
+            teacherId,
+            {status: "verified"}
+        ).exec();
+        return result_controller("OK", updatedTeacher);
+    } catch(err) {
+        console.error(err);
+        return result_controller("ERROR", null);
+    }
+}
+
 module.exports = {
     getAllTeachers,
     getTeacherById,
@@ -161,5 +174,6 @@ module.exports = {
     addClassToTeacher,
     getAllOwnedClass,
     getTeacherLessonById,
-    deleteTeacherClass
+    deleteTeacherClass,
+    updateStatusTeacher
 }

@@ -10,6 +10,11 @@ const secretCodeSchema = new Schema({
         type: String,
         required: true
     },
+    accountType: {
+        type: String,
+        enum: ["Teacher", "Student"],
+        required: true
+    },
     dateCreated: {
         type: Date,
         default: Date.now(),
