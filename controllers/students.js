@@ -135,6 +135,19 @@ const unEnrollClass = async (studentId, classId) => {
     }
 } // end func
 
+const updateStatus = async (studentId) => {
+    try {
+        const updatedStudent = await Students.findByIdAndUpdate(
+            studentId,
+            {status: "verified"}
+        ).exec();
+        return result_controller("OK", updatedStudent);
+    } catch(err) {
+        console.error(err);
+        return result_controller("ERROR", null);
+    }
+}
+
 module.exports = {
     getAllStudents,
     getStudentsById,
@@ -145,5 +158,6 @@ module.exports = {
     getAllEnrolledClass,
     getEnrolledClassById,
     enrollClass,
-    unEnrollClass
+    unEnrollClass,
+    updateStatus
 }
