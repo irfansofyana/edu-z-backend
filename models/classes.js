@@ -5,24 +5,26 @@ const Schema = mongoose.Schema;
 const classesSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     description: {
         type: String,
+        required: true
     },
     owner: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'Teachers',
         required: true
     },
     lessons: [{
-        lesson_number : {type: Number},
-        lesson_title : {type: String},
-        lesson_body : {type: String}
+        type: Schema.Types.ObjectId,
+        ref: 'Lessons'
+    }],
+    member: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Students'
     }]
-    // member: {
-    //     type: String,
-    //     required: true
-    // },
     // feedbacks: {
     //     type: String,
     //     required: true

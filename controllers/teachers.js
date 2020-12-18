@@ -1,6 +1,7 @@
 const Teachers = require('../models/teachers')
 const bcrypt = require('bcrypt')
 const {result_controller} = require('../middleware')
+const Mongoose = require('mongoose')
 
 const round = 10  
 const salt = bcrypt.genSaltSync(round)
@@ -86,6 +87,69 @@ const getTeacherByUsernameAndPassword = async (username, password) => {
     }
 }
 
+const addClassToTeacher = async (teacherId, classId) => {
+    try {
+        const classObjectId = Mongoose.Types.ObjectId(classId);
+
+        const ownedClass = await Teachers.findByIdAndUpdate(
+            teacherId,
+            {$push: {ownedClass : classObjectId}},
+            {new: true}
+        );
+
+        return result_controller("OK", ownedClass);
+    } catch (err) {
+        console.error(err);
+        return result_controller("ERROR", null);
+    }
+}
+
+const getAllOwnedClass = async (teacherId) => {
+    try {
+        const ownedClass = await (
+            Teachers.findById(teacherId)
+                .populate({path: "classes", model: "Classes"})
+        );
+        return result_controller("OK", ownedClass)
+    } catch (error) {
+        console.error(error)
+        return result_controller("ERROR", null)
+    }
+}
+
+const getTeacherLessonById = async (teacherId, classId) => {
+    try {
+        const teacher = await Teachers
+            .findById(teacherId)
+            .populate({
+                path: "classes",
+                model: "Classes",
+                match: {_id: classId}
+            });
+        return result_controller("OK", teacher.ownedClass)
+    } catch (error) {
+        console.error(error)
+        return result_controller("ERROR", null)
+    }
+}
+
+const deleteTeacherClass = async (teacherId, classId) => {
+    try {
+        const classObjectId = Mongoose.Types.ObjectId(classId)
+        
+        const deletedClass = await Teachers.findByIdAndUpdate(
+            teacherId, 
+            {$pull : {ownedClass : classObjectId} }, 
+            {new: true}
+        );
+        
+        return result_controller("OK", deletedClass)
+    } catch (err) {
+        console.error(err);
+        return result_controller("ERROR", null);
+    }
+}
+
 module.exports = {
     getAllTeachers,
     getTeacherById,
@@ -93,5 +157,9 @@ module.exports = {
     updateTeacherById,
     deleteAllTeacher,
     deleteTeacherById,
-    getTeacherByUsernameAndPassword
+    getTeacherByUsernameAndPassword,
+    addClassToTeacher,
+    getAllOwnedClass,
+    getTeacherLessonById,
+    deleteTeacherClass
 }

@@ -1,0 +1,24 @@
+version: "2"
+services:
+  app:
+    container_name: app
+    restart: always
+    build: .
+    environment: 
+      - MONGO_URI=${MONGO_URI}
+      - DB_NAME=${DB_NAME}
+      - PORT=${PORT}
+      - ENV=${ENV}
+      - SECRET=${SECRET}
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    environment: 
+      - MONGO_URI=${MONGO_URI}
+      - DB_NAME=${DB_NAME}
+    ports:
+      - "27018:27017"

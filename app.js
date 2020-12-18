@@ -51,12 +51,18 @@ app.use(express.static('uploads'));
 
 // Routes setup
 app.use('/', indexRouter);
-app.use('/lessons', lessonsRouter);
+app.use('/lessons', jwtAuth, lessonsRouter);
 app.use('/students', jwtAuth, studentsRouter);
 app.use('/teachers', jwtAuth, teachersRouter);
+<<<<<<< HEAD
 app.use('/feedbacks', feedbacksRouter);
 app.use('/classes', classesRouter);
 app.use('/fileuploads', fileuploadsRouter);
+=======
+app.use('/feedbacks', jwtAuth, feedbacksRouter);
+app.use('/classes', jwtAuth, classesRouter);
+app.use('/auth', authRouter);
+>>>>>>> 005dbb9b08296131f4ee027f52750fd1a3954a82
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
