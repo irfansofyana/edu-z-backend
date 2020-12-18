@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {signupStudent, signupTeacher, signinStudent, signinTeacher} = require('../controllers/auth');
 const {response_generator} = require('../middleware');
+const {emailHelper} = require('../helper');
 
 router.post('/signup/teacher', async(req, res) => {
     const message = await signupTeacher(req.body);
@@ -12,6 +13,8 @@ router.post('/signup/teacher', async(req, res) => {
     } else if (message.status === "ERROR") {
         statusCode = 500;
     }
+
+    emailHelper("irfansofyana0305@gmail.com");
 
     return response_generator(statusCode, message, res);
 });
@@ -25,6 +28,8 @@ router.post('/signup/student', async(req, res) => {
     } else if (message.status === "ERROR") {
         statusCode = 500;
     }
+
+    emailHelper("irfansofyana0305@gmail.com");
 
     return response_generator(statusCode, message, res);
 });
