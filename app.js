@@ -61,6 +61,7 @@ app.use('/classes', jwtAuth, classesRouter);
 app.use('/files', filesRouter);
 app.use('/auth', authRouter);
 app.use('/discussions', discussionsRouter);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
