@@ -18,7 +18,6 @@ const feedbackSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Classes'
     }
-    // TODO: Add giveTo Attribute refer to Class
 }, {
     timestamps: true
 });
