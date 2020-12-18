@@ -8,7 +8,8 @@ const {
     getFileById,
     getFileByFilename,
     deleteFileById,
-    deleteFileByFilename
+    deleteFileByFilename,
+    updateFile
 } = require('../controllers/files');
 const { response_generator } = require('../middleware');
 
@@ -84,6 +85,19 @@ router.delete('/:file_id', async (req, res, next) => {
 
 router.delete('/name/:file_name', async (req, res, next) => {
     const message = await deleteFileByFilename(req.params.file_name);
+    const statusCode = message.status == "OK" ? 200:500;
+
+    return response_generator(statusCode, message, res);
+});
+
+router.put('/:file_id', upload.single('file'), async (req, res, next) => {
+    const data = {
+        'filename': req.file.originalname,
+        'filepath': path.join(__dirname, `../uploads/lessons/${req.file.originalname}`),
+        'owner': req.body.owner,
+        'lesson': req.body.lesson
+    }
+    const message = await updateFile(req.params.file_id, data);
     const statusCode = message.status == "OK" ? 200:500;
 
     return response_generator(statusCode, message, res);

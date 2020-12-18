@@ -23,7 +23,6 @@ const getAllFiles = async () => {
     }
 }
 
-
 const getFileById = async (fileId) => {
     try {
         const file = await Files.findById(fileId).exec();
@@ -70,11 +69,34 @@ const deleteFileByFilename = async (filename) => {
     }
 }
 
+const updateFile = async (id, data) => {
+    try {
+        const file = await Files.findById(id).exec();
+        const oldpath = file.filepath;
+
+        const updatedFile = await Files.findByIdAndUpdate(
+            id,
+            {$set: data},
+            {new: true}
+        ).exec();
+
+        if (data.filepath !== oldpath){
+            filesHelper.deleteFile(oldpath);
+        }
+
+        return result_controller("OK", updatedFile);
+    } catch (err) {
+        console.error(err);
+        return result_controller("ERROR", null);
+    }
+}
+
 module.exports = {
     addFile,
     getAllFiles,
     getFileById,
     getFileByFilename,
     deleteFileById,
-    deleteFileByFilename
+    deleteFileByFilename,
+    updateFile
 }
