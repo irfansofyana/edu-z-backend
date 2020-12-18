@@ -6,7 +6,7 @@ const {emailHelper} = require('../helper');
 const {addSecretCode, getSecretCode} = require('../controllers/secretcode');
 const {getStudentsById, updateStatus} = require('../controllers/students');
 const randomstring = require('randomstring');
-const {HOST} = require('../config');
+const {HOST, PORT} = require('../config');
 
 router.post('/signup/teacher', async(req, res) => {
     const message = await signupTeacher(req.body);
@@ -78,12 +78,14 @@ router.post('/signin/student', async (req, res) => {
 });
 
 router.get('/verify/student/:student_id/:secret_code', async (req, res) => {
-    const {studentId, secretCode} = req.params;
+    const studentId = req.params.student_id;
+    const secretCode = req.params.secretCode;
+
     const student = await getStudentsById(studentId);
-    if (studentId.status == "OK") {
+    if (student.status == "OK") {
         const emailStudent = student.data.email;
         const secretCodeFound = await getSecretCode(emailStudent);
-        if (secretCodeFound == secretCode) {
+        if (secretCodeFound.code == secretCode) {
             const updatedStudent = await updateStatus(studentId);
             // Success!
             res.redirect('/');

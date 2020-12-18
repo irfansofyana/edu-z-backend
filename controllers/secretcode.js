@@ -1,9 +1,9 @@
 const SecretCode = require('../models/secretcode');
-const {result_controller} = require('../middleware')
+const {result_controller} = require('../middleware');
 
 const addSecretCode = async (data) => {
     try {
-        const created = SecretCode.create(data).exec();
+        const created = await SecretCode.create(data);
         return result_controller("OK", created);
     } catch (err) {
         console.error(err);
@@ -13,7 +13,7 @@ const addSecretCode = async (data) => {
 
 const getSecretCode = async (email) => {
     try {
-        const data = SecretCode.findOne({email: email}).exec();
+        const data = await SecretCode.findOne({email: email}).exec();
         return result_controller("OK", data);
     } catch (err) {
         console.error(err);
