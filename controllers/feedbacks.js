@@ -23,6 +23,16 @@ const getFeedbackById = async (id) => {
     }
 }
 
+const getFeedbacClassById = async (id) => {
+    try {
+        const feedback = await Feedbacks.find({class:{$eq:id}}).exec();
+        return result_controller("OK", feedback);
+    } catch (err) {
+        console.error(err);
+        return result_controller("ERROR", null);
+    }
+}
+
 const createFeedback = async (feedback) => {
     try {
         const createdFeedback = await Feedbacks.create(feedback);
@@ -59,6 +69,7 @@ const deleteFeedbackById = async (id) => {
 
 module.exports = {
     getAllFeedbacks,
+    getFeedbacClassById,
     getFeedbackById,
     createFeedback,
     updateFeedbackById,
