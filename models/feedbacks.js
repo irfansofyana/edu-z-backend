@@ -13,8 +13,11 @@ const feedbackSchema = new Schema({
     givenBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Students'
+    },
+    class: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Classes'
     }
-    // TODO: Add giveTo Attribute refer to Class
 }, {
     timestamps: true
 });

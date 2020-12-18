@@ -1,6 +1,10 @@
 const Students = require('../models/students');
 const {result_controller} = require('../middleware');
 const bcrypt = require('bcrypt');
+const Mongoose = require('mongoose');
+const { model } = require('../models/students');
+const { path } = require('../app');
+
 const salt = 10;
 
 const getAllStudents = async () => {
@@ -63,7 +67,7 @@ const getStudentByUsernameAndPassword = async (username, password) => {
         let data = student;
         
         if (!bcrypt.compareSync(password, student.password)) {
-           data = null;
+            data = null;
         }
 
         return result_controller("OK", data);
@@ -72,6 +76,64 @@ const getStudentByUsernameAndPassword = async (username, password) => {
         return result_controller("ERROR", null);
     }
 }
+// CLASS ENROLLMENT
+
+const getAllEnrolledClass = async (studentId) => {
+    try {
+        const listEnrolledClass = await Students.findById(studentId).populate({path: "registeredClass", model: "Classes"})
+        return result_controller("OK", listEnrolledClass)
+
+    } catch (error) {
+        console.error(error)
+        return result_controller("ERROR", null)
+    }
+}
+
+//get single data of enrolled class by a student
+const getEnrolledClassById = async (studentId, classId) => {
+    
+    try {
+        const enrolledClass = await Students.findById(studentId)
+            .populate({path: "registeredClass", 
+            model: "Classes",
+            match: {_id: classId}
+            })
+        return result_controller("OK", enrolledClass.registeredClass)
+    } catch (error) {
+        console.error(error)
+        return result_controller("ERROR", null)
+    }
+    
+
+}
+
+const enrollClass = async (studentId, classId) => {
+    try {
+        const classObjectId = Mongoose.Types.ObjectId(classId)
+        
+        const enrolledClass = await Students.findByIdAndUpdate(studentId, 
+            {$push : {registeredClass : classObjectId} }, {new: true})
+        
+        return result_controller("OK", enrolledClass)
+    } catch (error) {
+        console.error(error)
+        return result_controller("ERROR", null)
+    }
+} // end func
+
+const unEnrollClass = async (studentId, classId) => {
+    try {
+        const classObjectId = Mongoose.Types.ObjectId(classId)
+        
+        const enrolledClass = await Students.findByIdAndUpdate(studentId, 
+            {$pull : {registeredClass : classObjectId} }, {new: true})
+        
+        return result_controller("OK", enrolledClass)
+    } catch (error) {
+        console.error(error)
+        return result_controller("ERROR", null)
+    }
+} // end func
 
 module.exports = {
     getAllStudents,
@@ -79,5 +141,9 @@ module.exports = {
     createStudent,
     updateStudentsById,
     deleteStudentsById,
-    getStudentByUsernameAndPassword
+    getStudentByUsernameAndPassword,
+    getAllEnrolledClass,
+    getEnrolledClassById,
+    enrollClass,
+    unEnrollClass
 }
