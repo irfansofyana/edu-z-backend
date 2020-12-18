@@ -21,4 +21,4 @@ services:
       - MONGO_URI=${MONGO_URI}
       - DB_NAME=${DB_NAME}
     ports:
-      - "27017:27017"
+      - "27018:27017"
