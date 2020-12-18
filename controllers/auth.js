@@ -89,7 +89,7 @@ const signinStudent = async (username, userpassword) => {
     try {
         const user = await getStudentByUsernameAndPassword(username, userpassword)
 
-        if (user.data === null ) {
+        if (user.data === null || user.data.status==="pending") {
             return result_controller("UNAUTHORIZED", null);
         }
 
