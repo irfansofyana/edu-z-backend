@@ -19,6 +19,7 @@ var teachersRouter = require('./routes/teachers');
 var feedbacksRouter = require('./routes/feedbacks');
 var classesRouter = require('./routes/classes');
 var authRouter = require('./routes/auth');
+var fileuploadsRouter = require('./routes/fileuploads');
 
 // Auth middleware
 var {jwtAuth} = require('./middleware');
@@ -45,15 +46,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//code connected with routes/fileuploads.js
+app.use(express.static('uploads'));
 
 // Routes setup
 app.use('/', indexRouter);
 app.use('/lessons', jwtAuth, lessonsRouter);
 app.use('/students', jwtAuth, studentsRouter);
 app.use('/teachers', jwtAuth, teachersRouter);
+<<<<<<< HEAD
+app.use('/feedbacks', feedbacksRouter);
+app.use('/classes', classesRouter);
+app.use('/fileuploads', fileuploadsRouter);
+=======
 app.use('/feedbacks', jwtAuth, feedbacksRouter);
 app.use('/classes', jwtAuth, classesRouter);
 app.use('/auth', authRouter);
+>>>>>>> 005dbb9b08296131f4ee027f52750fd1a3954a82
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
