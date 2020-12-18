@@ -118,7 +118,7 @@ router.get('/verify/teacher/:teacher_id/:secret_code', async (req, res) => {
         const emailTeacher = teacher.data.email;
         const secretCodeFound = await getSecretCode(emailTeacher, 'Teacher');
         if (secretCodeFound.code == secretCode) {
-            const updatedTeacher = await updateStatusTeacher(studentId);
+            const updatedTeacher = await updateStatusTeacher(teacherId);
             // Success!
             res.redirect('/');
         } else {
