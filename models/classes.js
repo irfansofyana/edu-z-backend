@@ -16,15 +16,15 @@ const classesSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Teachers',
         required: true
-    },
-    lessons: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Lessons'
-    }],
-    member: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Students'
-    }]
+    }
+    // lessons: [{
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Lessons'
+    // }],
+    // member: [{
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Students'
+    // }]
     // feedbacks: {
     //     type: String,
     //     required: true
